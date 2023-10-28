@@ -1355,8 +1355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21884b6a1caac9d4384635fb0508bca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeCountX: 50
-  nodeCountZ: 50
+  nodeCountX: 5
+  nodeCountZ: 5
   xMin: 0
   xMax: 200
   zMin: 0
