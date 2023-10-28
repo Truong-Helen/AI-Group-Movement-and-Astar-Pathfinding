@@ -10,19 +10,17 @@ public class Node
 
     public Node parentNode = null;
 
-    public float hValue;
-    public float gValue;
-    public float fValue;
-
-
-
-    // constructor
-
+    public float hCost;
+    public float gCost;
+    public float fCost;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        hCost = 0;
+        gCost = float.MaxValue;
+        fCost = hCost + gCost;
+        parentNode = null;
     }
 
     // Update is called once per frame

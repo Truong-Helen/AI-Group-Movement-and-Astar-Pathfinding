@@ -21,6 +21,7 @@ public class Astar : MonoBehaviour
     public GameObject waypointPrefab;
     public GameObject startPointPrefab;
     public GameObject endPointPrefab;
+    public Transform waypointParent;
 
     GameObject startPoint;
     GameObject endPoint;
@@ -29,18 +30,16 @@ public class Astar : MonoBehaviour
 
     List<Node> frontier;
     HashSet<Node> explored;
-    Dictionary<(int, int), float> nodeFValues;
 
     // Start is called before the first frame update
     void Start()
     {
         frontier = new List<Node>();
         explored = new HashSet<Node>();
-        nodeFValues = new Dictionary<(int, int), float>();
+
         startLayerMask = 1 << 6;
         endLayerMask = 1 << 7;
         obstacleLayerMask = 1 << 3;
-
 
         nodes = new Node[nodeCountX, nodeCountZ];
         // code from slides
@@ -72,6 +71,7 @@ public class Astar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if 
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, startLayerMask)) 
@@ -139,79 +139,80 @@ public class Astar : MonoBehaviour
          *      add currentnode to frontier
          * 
          */
-        frontier.Clear();
 
+
+        // clear 
+        frontier.Clear();
         explored.Clear();
 
-        nodeFValues.Clear();
-
-        Node node = FindNearestNode(startPointPosition);
+        // find startNode and endNode based on user input
+        Node startNode = FindNearestNode(startPointPosition);
         Node endNode = FindNearestNode(endPointPosition);
-        node.fValue = 0;
 
-        frontier.Add(node);
-        UpdateFValues(node);
+        // set up start node        
+        startNode.gCost = 0;
+        startNode.hCost = CalculateHCost(startNode, endNode);
+        startNode.parentNode = null;
+        CalculateFCost(startNode.parentNode, startNode, endNode);
+
+        frontier.Add(startNode);
+
         
-
         while (frontier.Count > 0)
         {
-            if (explored.Count > 100)
-            {
-                Debug.Log("Encountered infinite loop");
-                Debug.Log($"frontier.Count: {frontier.Count}");
-                Debug.Log($"nodeFValues.Count: {nodeFValues.Count}");
-                Stack<Node> solution = new Stack<Node>();
-                Node pathNode = node;
-                while (node != null)
-                {
-                    solution.Push(node);
-                    node = node.parentNode;
-                }
-                return solution.ToList(); 
-            }
 
+            // if frontier is empty --> then no path was found
             if (frontier.Count == 0)
             {
                 Debug.Log("Path not found");
                 return null;
             }
-            node = frontier[0];
-            frontier.RemoveAt(0);
-            nodeFValues.Remove((node.gridPositionX, node.gridPositionZ));
 
+            // current node
+            Node node = frontier[0];
 
-            if (AtGoal(node, endNode))
+            // path is found when current node equals end node
+            if (node == endNode)
             {
-                Stack<Node> solution = new Stack<Node>();
-                Node pathNode = node;
-                while (node != null)
-                {
-                    solution.Push(node);
-                    node = node.parentNode;
-                }
-
-                return solution.ToList();
+                return GeneratePath(node);
+                //return path;
             }
-            
-            
+
+            frontier.RemoveAt(0);
             explored.Add(node);
 
-
-            //Debug.Log(node.gridPositionX + ", " + node.gridPositionZ);
+            // search nodes around current node
             foreach (Node nearbyNode in FindNearbyNodes(node))
             {
                 //Debug.Log("checking nearby node");
-                if (!explored.Contains(nearbyNode) || !nodeFValues.ContainsKey((nearbyNode.gridPositionX, nearbyNode.gridPositionZ)))
+
+                // if current node has not been explored or is not planned to be explored --> add to list
+                if (!explored.Contains(nearbyNode) && !frontier.Contains(nearbyNode))
                 {
                     //Debug.Log("New nearby node");
+
                     nearbyNode.parentNode = node;
-                    FValue(node, nearbyNode, endNode);
+                    nearbyNode.gCost = CalculateGCost(node, nearbyNode);
+                    nearbyNode.hCost = CalculateHCost(nearbyNode, endNode);
+                    CalculateFCost(node, nearbyNode, endNode);
                     PriorityInsert(nearbyNode);
                 }
-                else if (nodeFValues.ContainsKey((nearbyNode.gridPositionX, nearbyNode.gridPositionZ)))
+                // if visiting a node again --> check if it has a better gCost than before
+                else if (frontier.Contains(nearbyNode))
                 {
-                    nearbyNode.parentNode = node;
-                    UpdateFValues(nearbyNode);
+                    float potentialGValue = node.gCost + CalculateGCost(node, nearbyNode);
+                    if (node.gCost + CalculateGCost(node, nearbyNode) > nearbyNode.gCost)
+                    {
+                        frontier.Remove(nearbyNode);
+
+                        nearbyNode.parentNode = node;
+                        nearbyNode.gCost = potentialGValue;
+                        nearbyNode.hCost = CalculateHCost(nearbyNode, endNode);
+                        CalculateFCost(node, nearbyNode, endNode);
+
+                        // took out and reinserted node so it can be sorted properly into frontier w/ its new gCost
+                        PriorityInsert(nearbyNode); 
+                    }
                 }
             }
         }
@@ -221,9 +222,19 @@ public class Astar : MonoBehaviour
 
     }
 
-    public void UpdateFValues(Node node)
+    // works backward from the end to find a path
+    public List<Node> GeneratePath(Node endNode)
     {
-        nodeFValues[(node.gridPositionX, node.gridPositionZ)] = node.fValue;
+        Stack<Node> path = new Stack<Node>();
+
+        Node pathNode = endNode;
+        while (pathNode != null)
+        {
+            path.Push(pathNode);
+            pathNode = pathNode.parentNode;
+        }
+
+        return path.ToList(); // ToList() will reverse the stack so the path is in the correct order
     }
 
     public List<Node> FindNearbyNodes(Node node)
@@ -248,7 +259,7 @@ public class Astar : MonoBehaviour
                     0 <= indexZ && indexZ <= nodeCountZ-1)
                 {
                     Node newNode = nodes[indexX, indexZ];
-
+                    
 
                     nearbyNodes.Add(newNode);
                     if (Physics.Raycast(node.worldPosition,
@@ -264,51 +275,24 @@ public class Astar : MonoBehaviour
             }
         }
 
-        Debug.Log($"Amount of available nodes: {nearbyNodes.Count}");
+        //Debug.Log($"Amount of available nodes: {nearbyNodes.Count}");
         return nearbyNodes;
-    }
-
-    public bool AtGoal(Node node, Node goalNode)
-    {
-        if (node.worldPosition == goalNode.worldPosition)
-        {
-            return true;   
-        }
-        else
-        {
-            return false;
-        }
     }
 
     public void PriorityInsert(Node node) // uses frontier queue
     {
-        if (frontier.Count == 0)
+        int insertIndex = 0;
+
+        // keeps track of index until there is an fCost larger than the node's fCost
+        for (int i = 0; i < frontier.Count; i++)
         {
-            frontier.Add(node);
-            
-        }
-        else
-        {
-            for (int i = 0; i <= frontier.Count; i++) 
+            if (frontier[i].fCost <= node.fCost)
             {
-                if (i == frontier.Count) 
-                {
-                    frontier.Add(node);
-                    break;
-                    
-                }
-                else if (frontier[i].fValue > node.fValue)
-                {
-                    frontier.Insert(i, node); // we assume that this doesn't replace the node
-                    
-                    break;
-                }
+                insertIndex = i + 1;
             }
-
         }
-        UpdateFValues(node);
 
-
+        frontier.Insert(insertIndex, node);
     }
 
     public List<Node> GeneratePathWaypoints(List<Node> path)
@@ -325,7 +309,8 @@ public class Astar : MonoBehaviour
             Debug.Log("Displaying path:");
             foreach (Node node in path)
             {
-                Instantiate(waypointPrefab, node.worldPosition, Quaternion.identity);
+                GameObject waypoint = Instantiate(waypointPrefab, node.worldPosition, Quaternion.identity);
+                waypoint.transform.parent = waypointParent;
             }
         }
         return null;
@@ -342,38 +327,46 @@ public class Astar : MonoBehaviour
 
         Node nearestNode = nodes[nodeX,nodeZ];
 
-        Instantiate(waypointPrefab, nearestNode.worldPosition, Quaternion.identity);
+        //Instantiate(waypointPrefab, nearestNode.worldPosition, Quaternion.identity);
 
         return nearestNode;
     }
 
-    public float HValue(Node parentNode, Node goalNode)
+    public float CalculateHCost(Node currentNode, Node goalNode)
     {
         // Uses Manhattan Distance (number of nodes traversed)
-        float manhattanDistance = Mathf.Abs(parentNode.gridPositionX - goalNode.gridPositionX) + Mathf.Abs(parentNode.gridPositionZ - goalNode.gridPositionZ);
+        float manhattanDistance = Mathf.Abs(currentNode.gridPositionX - goalNode.gridPositionX) + Mathf.Abs(currentNode.gridPositionZ - goalNode.gridPositionZ);
 
-        Debug.Log("ManhattanDistance: " + manhattanDistance);
+        //Debug.Log("ManhattanDistance: " + manhattanDistance);
 
         return manhattanDistance;
     }
 
-    public float GValue(Node parentNode, Node currentNode)
+    public float CalculateGCost(Node parentNode, Node currentNode)
     {
+        // distance formula
         float distance = Vector3.Magnitude(currentNode.worldPosition - parentNode.worldPosition);
 
-        return distance + parentNode.gValue;
+        return distance + parentNode.gCost;
     }
 
-    public void FValue(Node parentNode, Node currentNode, Node goalNode)
+    public void CalculateFCost(Node parentNode, Node currentNode, Node goalNode)
     {
-        float gValue = GValue(parentNode, goalNode);
-        currentNode.gValue = gValue;
+        if (parentNode == null)
+        {
+            currentNode.gCost = 0;
+            currentNode.hCost = CalculateHCost(currentNode, goalNode);
+            currentNode.fCost = currentNode.hCost;
 
-        float hValue = HValue(parentNode, goalNode);
-        currentNode.hValue = hValue;
+            return;
+        }
+
+        float gValue = CalculateGCost(parentNode, goalNode);
+
+        float hValue = CalculateHCost(currentNode, goalNode);
 
         float fValue = gValue + hValue;
-        currentNode.fValue = fValue;
+        currentNode.fCost = fValue;
 
     }
 }
