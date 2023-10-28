@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node : MonoBehaviour
+public class Node
 {
-    Vector3 pos;
+    public Vector3 worldPosition;
+    public int gridPositionX;
+    public int gridPositionZ;
+
+    public Node parentNode = null;
+
+    public float hValue;
+    public float gValue;
+    public float fValue;
 
 
 
@@ -22,4 +30,6 @@ public class Node : MonoBehaviour
     {
         
     }
+
+    
 }

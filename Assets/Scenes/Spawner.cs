@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] Transform startSquare;
     [SerializeField] Transform endSquare;
     [SerializeField] int spawnAmount;
+    [SerializeField] float border = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator spawnObstacles(GameObject obstaclePrefab, int spawnAmount)
     {
-        float border = 10f;
+
         float spawnXStart = startSquare.position.x + border;
         float spawnXEnd = endSquare.position.x - border;
         float spawnZStart = startSquare.position.z;

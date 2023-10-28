@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 402105509}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1243,7 +1243,7 @@ GameObject:
   - component: {fileID: 720844151}
   - component: {fileID: 720844150}
   - component: {fileID: 720844149}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EndArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1325,6 +1325,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &862816246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 862816248}
+  - component: {fileID: 862816247}
+  m_Layer: 0
+  m_Name: Astar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &862816247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862816246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21884b6a1caac9d4384635fb0508bca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeCountX: 50
+  nodeCountZ: 50
+  xMin: 0
+  xMax: 200
+  zMin: 0
+  zMax: 200
+  waypointPrefab: {fileID: 5772345608606178780, guid: df22b8b2e5efb5a44ab26e8f07f6c16e,
+    type: 3}
+  startPointPrefab: {fileID: 5772345608606178780, guid: 5bf3321470f5dc34697815a1de90f2eb,
+    type: 3}
+  endPointPrefab: {fileID: 5772345608606178780, guid: 93cafa5432253f34d968a7055931d5c2,
+    type: 3}
+--- !u!4 &862816248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862816246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &977375179 stripped
 Transform:
@@ -2722,6 +2777,7 @@ MonoBehaviour:
   startSquare: {fileID: 2111415756}
   endSquare: {fileID: 720844152}
   spawnAmount: 20
+  border: 5
 --- !u!4 &1619998034
 Transform:
   m_ObjectHideFlags: 0
@@ -3448,7 +3504,7 @@ GameObject:
   - component: {fileID: 2111415755}
   - component: {fileID: 2111415754}
   - component: {fileID: 2111415753}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StartArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
