@@ -295,11 +295,19 @@ public class Astar : MonoBehaviour
         frontier.Insert(insertIndex, node);
     }
 
+    public void ClearWaypoints()
+    {
+        foreach (Transform waypoint in waypointParent.transform)
+        {
+            Destroy(waypoint.gameObject);
+        }
+    }
+
     public List<Node> GeneratePathWaypoints(List<Node> path)
     {
         // filter through path and find the waypoints
         // display waypoints
-
+        ClearWaypoints();
         if (path == null)
         {
             Debug.Log("path is null");
@@ -307,11 +315,46 @@ public class Astar : MonoBehaviour
         else
         {
             Debug.Log("Displaying path:");
+            Node prevNode = null;
+            GameObject waypoint;
+            Vector3 additionVector = Vector3.zero;
+            
             foreach (Node node in path)
             {
-                GameObject waypoint = Instantiate(waypointPrefab, node.worldPosition, Quaternion.identity);
-                waypoint.transform.parent = waypointParent;
+                if (prevNode == null)
+                {
+                    Debug.Log("This should print once");
+                    prevNode = node;
+                    waypoint = Instantiate(waypointPrefab, prevNode.worldPosition, Quaternion.identity);
+                    waypoint.transform.parent = waypointParent;
+                }
+                else 
+                {
+                    if (additionVector == Vector3.zero)
+                    {
+                        additionVector = node.worldPosition - prevNode.worldPosition;
+                        
+                    }
+                    else
+                    {
+                        
+                        if (!Mathf.Approximately(prevNode.worldPosition.x + additionVector.x, node.worldPosition.x) ||
+                            !Mathf.Approximately(prevNode.worldPosition.z + additionVector.z, node.worldPosition.z))
+                        {
+                            // create waypoint at prevNode
+                            waypoint = Instantiate(waypointPrefab, prevNode.worldPosition, Quaternion.identity);
+                            waypoint.transform.parent = waypointParent;
+                            additionVector = node.worldPosition - prevNode.worldPosition;
+
+                        }
+                    }
+                }
+
+                prevNode = node;
             }
+
+            waypoint = Instantiate(waypointPrefab, prevNode.worldPosition, Quaternion.identity);
+            waypoint.transform.parent = waypointParent;
         }
         return null;
     }
