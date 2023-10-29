@@ -8,6 +8,12 @@ using UnityEngine;
 
 public class Astar : MonoBehaviour
 {
+    public static Astar inst;
+    private void Awake()
+    {
+        inst = this; 
+    }
+
     Node[,] nodes;
     public int nodeCountX, nodeCountZ;
     public float xMin, xMax, zMin, zMax;
@@ -31,6 +37,9 @@ public class Astar : MonoBehaviour
     List<Node> frontier;
     HashSet<Node> explored;
 
+    public LineRenderer linePrefab;
+    public Transform lineParent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +61,7 @@ public class Astar : MonoBehaviour
                 nodes[i,j] = new Node();
                 float xPos = xMin + i * (xMax - xMin) / (nodeCountX - 1);
                 float zPos = zMin + j * (zMax - zMin) / (nodeCountZ - 1);
-                nodes[i,j].worldPosition = new Vector3(xPos, 0, zPos);
+                nodes[i,j].worldPosition = new Vector3(xPos, 0.5f, zPos);
                 nodes[i,j].gridPositionX = i;
                 nodes[i,j].gridPositionZ = j;
                 //Instantiate(waypointPrefab, nodes[i,j].worldPosition, Quaternion.identity);
@@ -76,11 +85,7 @@ public class Astar : MonoBehaviour
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, startLayerMask)) 
             {
-                if (startPoint != null)
-                {
-                    Destroy(startPoint);
-                }
-                
+                DestroyStartPoint();
                 
                 Debug.Log("Starting Position: " + hit.point);
                 startPoint = Instantiate(startPointPrefab, hit.point, Quaternion.identity);
@@ -99,11 +104,8 @@ public class Astar : MonoBehaviour
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, endLayerMask)) 
             {
-                if (endPoint != null)
-                {
-                    Destroy(endPoint);
-                }
-                
+
+                DestroyEndPoint();
                 
                 Debug.Log("Ending Position: " + hit.point);
                 endPoint = Instantiate(endPointPrefab, hit.point, Quaternion.identity);
@@ -117,6 +119,21 @@ public class Astar : MonoBehaviour
                     GeneratePathWaypoints(FindPath());
                 }
             }
+        }
+    }
+
+    public void DestroyStartPoint()
+    {
+        if (startPoint != null)
+        {
+            Destroy(startPoint);
+        }
+    }
+    public void DestroyEndPoint()
+    {
+        if (endPoint != null)
+        {
+            Destroy(endPoint);
         }
     }
 
@@ -305,15 +322,45 @@ public class Astar : MonoBehaviour
 
     public List<Node> GeneratePathWaypoints(List<Node> path)
     {
+        List<Node> smoothPath = new List<Node>();
+        int lastIndex = path.Count - 1;
+
         // filter through path and find the waypoints
         // display waypoints
         ClearWaypoints();
+        ClearLines();
         if (path == null)
         {
             Debug.Log("path is null");
         }
         else
         {
+            smoothPath.Add(path[0]);
+
+            for (int i = 1; i < path.Count - 1; i++)
+            {
+                int smoothLastIndex = smoothPath.Count - 1;
+                if (Physics.Linecast(smoothPath[smoothLastIndex].worldPosition, path[i+1].worldPosition, obstacleLayerMask))
+                {
+                    smoothPath.Add(path[i]);
+                }
+            }
+
+            smoothPath.Add(path[lastIndex]);
+
+            for (int i = 0; i < smoothPath.Count; i++)
+            {
+                GameObject waypoint = Instantiate(waypointPrefab, smoothPath[i].worldPosition, Quaternion.identity);
+                waypoint.transform.parent = waypointParent;
+                
+                if (i != 0)
+                {
+                    CreateLine(smoothPath[i - 1].worldPosition, smoothPath[i].worldPosition);
+                }
+                
+            }
+
+            /*
             Debug.Log("Displaying path:");
             Node prevNode = null;
             GameObject waypoint;
@@ -355,10 +402,25 @@ public class Astar : MonoBehaviour
 
             waypoint = Instantiate(waypointPrefab, prevNode.worldPosition, Quaternion.identity);
             waypoint.transform.parent = waypointParent;
+            */
         }
         return null;
     }
-     
+
+    public void ClearLines()
+    {
+        foreach(Transform line in lineParent)
+        {
+            Destroy(line.gameObject);
+        }
+    }
+    public void CreateLine(Vector3 p1, Vector3 p2)
+    {
+        LineRenderer lr = Instantiate<LineRenderer>(linePrefab, lineParent);
+        lr.SetPosition(0, p1);
+        lr.SetPosition(1, p2);
+    }
+
     public Node FindNearestNode(Vector3 position) // Does not account for spawning in obstacles
     {
         //float xPos = xMin + i * (xMax - xMin) / (nodeCountX - 1);

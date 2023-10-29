@@ -37,6 +37,12 @@ public class Spawner : MonoBehaviour
         float spawnXEnd = endSquare.position.x - border;
         float spawnZStart = startSquare.position.z;
         float spawnZEnd = endSquare.position.z;
+
+        Astar.inst.ClearWaypoints();
+        Astar.inst.ClearLines();
+        Astar.inst.DestroyStartPoint();
+        Astar.inst.DestroyEndPoint();
+
         for (int i = 0; i < spawnAmount; i++)
         {
             GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(Random.Range(spawnXStart, spawnXEnd), 0, Random.Range(spawnZStart,spawnZEnd)), Quaternion.identity);
@@ -47,4 +53,5 @@ public class Spawner : MonoBehaviour
         yield return null;
 
     }
+
 }
