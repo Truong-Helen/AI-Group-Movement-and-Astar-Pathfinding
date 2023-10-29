@@ -23,12 +23,14 @@ public class Move : Command
 
     public override void Tick()
     {
-        DHDS dhds;
+        DHDS dhds = ComputeDHDS();
+        /*
         if (AIMgr.inst.isPotentialFieldsMovement)
             dhds = ComputePotentialDHDS();
         else
             dhds = ComputeDHDS();
 
+        */
         entity.desiredHeading = dhds.dh;
         entity.desiredSpeed = dhds.ds;
         line.SetPosition(1, movePosition);
@@ -49,7 +51,7 @@ public class Move : Command
     public DHDS ComputePotentialDHDS()
     {
         Potential p;
-        repulsivePotential = Vector3.one; repulsivePotential.y = 0;
+        repulsivePotential = Vector3.zero; repulsivePotential.y = 0;
         foreach (Entity381 ent in EntityMgr.inst.entities) {
             if (ent == entity) continue;
             p = DistanceMgr.inst.GetPotential(entity, ent);
