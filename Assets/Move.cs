@@ -88,7 +88,7 @@ public class Move : Command
 
 
 
-    public float doneDistanceSq = 1000;
+    public float doneDistanceSq = 10;
     public override bool IsDone()
     {
 
