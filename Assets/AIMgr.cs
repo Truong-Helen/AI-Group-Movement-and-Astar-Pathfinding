@@ -38,10 +38,12 @@ public class AIMgr : MonoBehaviour
                 if (ent == null) {
                     HandleMove(SelectionMgr.inst.selectedEntities, pos);
                 } else {
+                    /*
                     if (Input.GetKey(KeyCode.LeftControl))
                         HandleIntercept(SelectionMgr.inst.selectedEntities, ent);
                     else
                         HandleFollow(SelectionMgr.inst.selectedEntities, ent);
+                    */
                 }
             } else {
                 //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward) * 1000, Color.white, 2);

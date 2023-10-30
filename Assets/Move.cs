@@ -23,14 +23,13 @@ public class Move : Command
 
     public override void Tick()
     {
-        DHDS dhds = ComputeDHDS();
-        /*
+        DHDS dhds;
         if (AIMgr.inst.isPotentialFieldsMovement)
             dhds = ComputePotentialDHDS();
         else
             dhds = ComputeDHDS();
 
-        */
+        
         entity.desiredHeading = dhds.dh;
         entity.desiredSpeed = dhds.ds;
         line.SetPosition(1, movePosition);
@@ -61,6 +60,9 @@ public class Move : Command
                 //repulsivePotential += p.diff;
             }
         }
+        // TODO: Add Obstacle potential fields
+        
+        
         //repulsivePotential *= repulsiveCoefficient * Mathf.Pow(repulsivePotential.magnitude, repulsiveExponent);
         attractivePotential = movePosition - entity.position;
         Vector3 tmp = attractivePotential.normalized;

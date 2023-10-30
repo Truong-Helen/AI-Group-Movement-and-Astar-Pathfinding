@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Android;
 
-public class Spawner : MonoBehaviour
+public class PFSpawner : MonoBehaviour
 {
     [SerializeField] GameObject obstaclePrefab;
     [SerializeField] Transform obstaclesParent;
@@ -15,6 +15,14 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Vector3 blCorner = startSquare.position;
+        Vector3 brCorner = new Vector3(endSquare.position.x, 0, startSquare.position.z);
+        Vector3 trCorner = endSquare.position;
+        Vector3 tlCorner = new Vector3(startSquare.position.x, 0, endSquare.position.z);
+        Debug.DrawLine(blCorner, brCorner, Color.magenta, float.MaxValue);
+        Debug.DrawLine(brCorner,trCorner, Color.magenta, float.MaxValue);
+        Debug.DrawLine(trCorner,tlCorner, Color.magenta, float.MaxValue);
+        Debug.DrawLine(tlCorner,blCorner, Color.magenta, float.MaxValue);
         StartCoroutine(spawnObstacles(obstaclePrefab, spawnAmount));
     }
 
@@ -39,12 +47,6 @@ public class Spawner : MonoBehaviour
         float spawnZStart = startSquare.position.z;
         float spawnZEnd = endSquare.position.z;
         
-        /*
-        Astar.inst.ClearWaypoints();
-        Astar.inst.ClearLines();
-        Astar.inst.DestroyStartPoint();
-        Astar.inst.DestroyEndPoint();
-        */ 
         for (int i = 0; i < spawnAmount; i++)
         {
             GameObject obstacle = Instantiate(obstaclePrefab, new Vector3(Random.Range(spawnXStart, spawnXEnd), 0, Random.Range(spawnZStart,spawnZEnd)), Quaternion.identity);
