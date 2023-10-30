@@ -5,16 +5,24 @@ using UnityEngine.Android;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] GameObject obstaclePrefab;
+    public static Spawner inst;
+
+    private void Awake()
+    {
+        inst = this;
+    }
+
+    public GameObject obstaclePrefab;
     [SerializeField] Transform obstaclesParent;
     [SerializeField] Transform startSquare;
     [SerializeField] Transform endSquare;
-    [SerializeField] int spawnAmount;
+    public int spawnAmount;
     [SerializeField] float border = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
+        //spawnAmount = SceneMgr.inst.spawnAmount;
         StartCoroutine(spawnObstacles(obstaclePrefab, spawnAmount));
     }
 

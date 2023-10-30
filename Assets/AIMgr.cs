@@ -26,27 +26,32 @@ public class AIMgr : MonoBehaviour
     public RaycastHit hit;
     public int layerMask;
 
+    public bool astarSingleMovement;
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask)) {
-                //Debug.DrawLine(Camera.main.transform.position, hit.point, Color.yellow, 2); //for debugging
-                Vector3 pos = hit.point;
-                pos.y = 0;
-                Entity381 ent = FindClosestEntInRadius(pos, rClickRadiusSq);
-                if (ent == null) {
-                    HandleMove(SelectionMgr.inst.selectedEntities, pos);
+        if (!astarSingleMovement)
+        {
+            if (Input.GetMouseButtonDown(1)) {
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, layerMask)) {
+                    //Debug.DrawLine(Camera.main.transform.position, hit.point, Color.yellow, 2); //for debugging
+                    Vector3 pos = hit.point;
+                    pos.y = 0;
+                    Entity381 ent = FindClosestEntInRadius(pos, rClickRadiusSq);
+                    if (ent == null) {
+                        HandleMove(SelectionMgr.inst.selectedEntities, pos);
+                    } else {
+                        /*
+                        if (Input.GetKey(KeyCode.LeftControl))
+                            HandleIntercept(SelectionMgr.inst.selectedEntities, ent);
+                        else
+                            HandleFollow(SelectionMgr.inst.selectedEntities, ent);
+                        */
+                    }
                 } else {
-                    /*
-                    if (Input.GetKey(KeyCode.LeftControl))
-                        HandleIntercept(SelectionMgr.inst.selectedEntities, ent);
-                    else
-                        HandleFollow(SelectionMgr.inst.selectedEntities, ent);
-                    */
+                    //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward) * 1000, Color.white, 2);
                 }
-            } else {
-                //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.TransformDirection(Vector3.forward) * 1000, Color.white, 2);
             }
         }
     }

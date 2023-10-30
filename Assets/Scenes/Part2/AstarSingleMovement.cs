@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class Astar : MonoBehaviour
+public class AstarSingleMovement : MonoBehaviour
 {
-    public static Astar inst;
+    public static AstarSingleMovement inst;
     private void Awake()
     {
         inst = this; 
@@ -29,13 +29,12 @@ public class Astar : MonoBehaviour
     public GameObject endPointPrefab;
     public Transform waypointParent;
 
-    GameObject startPoint;
-    GameObject endPoint;
     Vector3 startPointPosition;
     Vector3 endPointPosition;
 
     List<Node> frontier;
     HashSet<Node> explored;
+    List<Node> smoothPath;
 
     public LineRenderer linePrefab;
     public Transform lineParent;
@@ -80,23 +79,23 @@ public class Astar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if 
-        if (Input.GetMouseButtonDown(0))
+        /*
+        if (Input.GetMouseButtonDown(0) && SelectionMgr.inst.selectedEntity != null)
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, startLayerMask)) 
             {
-                DestroyStartPoint();
+                //DestroyStartPoint();
                 
                 Debug.Log("Starting Position: " + hit.point);
-                startPoint = Instantiate(startPointPrefab, hit.point, Quaternion.identity);
+                //startPoint = Instantiate(startPointPrefab, hit.point, Quaternion.identity);
                 startPointPosition = hit.point;
                 
-                if (endPoint != null)
-                {
-                    Debug.DrawLine(startPoint.transform.position, endPoint.transform.position);
-                    Debug.Log("Path generated");
-                    GeneratePathWaypoints(FindPath());
-                }
+                //if (endPoint != null)
+                //{
+                //    Debug.DrawLine(startPoint.transform.position, endPoint.transform.position);
+                //    Debug.Log("Path generated");
+                //    GeneratePathWaypoints(FindPath());
+                // }
 
             }
         }
@@ -120,22 +119,38 @@ public class Astar : MonoBehaviour
                 }
             }
         }
+         */
+        
+        if (SelectionMgr.inst.selectedEntity != null)
+        {
+            startPointPosition = SelectionMgr.inst.selectedEntity.position;
+            if (Input.GetMouseButtonDown(1))
+            {
+                Debug.Log("Starting Position: " + SelectionMgr.inst.selectedEntity.position);
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, float.MaxValue, endLayerMask))
+                {
+
+                    Debug.Log("Ending Position: " + hit.point);
+                    endPointPosition = hit.point;
+
+                    Debug.Log("Path generated");
+                    GeneratePathWaypoints(FindPath());
+
+                    if (smoothPath.Count > 0)
+                    {
+                        for (int i = 0; i < smoothPath.Count; i++)
+                        {
+                            Debug.Log("Move to: " + smoothPath[i].worldPosition);
+                            MoveToCheckpoint(smoothPath[i].worldPosition);
+                        }
+                        //MoveToCheckpoint(smoothPath[1].worldPosition);
+                    }
+                    
+                }
+            }
+        }
     }
 
-    public void DestroyStartPoint()
-    {
-        if (startPoint != null)
-        {
-            Destroy(startPoint);
-        }
-    }
-    public void DestroyEndPoint()
-    {
-        if (endPoint != null)
-        {
-            Destroy(endPoint);
-        }
-    }
 
     public List<Node> FindPath()
     {
@@ -322,7 +337,7 @@ public class Astar : MonoBehaviour
 
     public List<Node> GeneratePathWaypoints(List<Node> path)
     {
-        List<Node> smoothPath = new List<Node>();
+        smoothPath = new List<Node>();
         int lastIndex = path.Count - 1;
 
         // filter through path and find the waypoints
@@ -348,19 +363,6 @@ public class Astar : MonoBehaviour
 
             smoothPath.Add(path[lastIndex]);
 
-            for (int i = 0; i < smoothPath.Count; i++)
-            {
-                GameObject waypoint = Instantiate(waypointPrefab, smoothPath[i].worldPosition, Quaternion.identity);
-                waypoint.transform.parent = waypointParent;
-                MoveToCheckpoint(waypoint.transform.position);
-
-
-                if (i != 0)
-                {
-                    CreateLine(smoothPath[i - 1].worldPosition, smoothPath[i].worldPosition);
-                }
-                
-            }
 
             /*
             Debug.Log("Displaying path:");
@@ -414,7 +416,7 @@ public class Astar : MonoBehaviour
         Debug.Log(entity);
         Move m = new Move(entity, newPosition);
         UnitAI ai = entity.GetComponent<UnitAI>();
-        ai.SetCommand(m);
+        ai.AddCommand(m);
 
     }
     public void ClearLines()
