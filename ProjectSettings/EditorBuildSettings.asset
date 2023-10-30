@@ -6,23 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Circle20Environment.unity
-    guid: 3546b75a9d83d404d8c4f5703c0a2d99
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 1fffe078f2b1e9648bb98a7fdf3e50f3
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 03f1f569d0c114c42be6f87debf90ae8
   - enabled: 1
-    path: Assets/Scenes/Part2/CircleEnvironmentPart2.unity
-    guid: 53648bb52eb0bbf4aaf1370cac4698a5
-  - enabled: 1
     path: Assets/Scenes/EnvironmentSelect.unity
     guid: c38917046a71ed7428bf39b605c35259
-  - enabled: 1
-    path: Assets/Scenes/Part1/CircleEnvironmentPart1.unity
-    guid: 62b8fd7381ad4ba448d6722af97acf71
   - enabled: 1
     path: Assets/Scenes/Part1/EnvironmentSelectPart1.unity
     guid: 5cb67bc3eafc8484fa311e7626a78307
@@ -33,12 +24,48 @@ EditorBuildSettings:
     path: Assets/Scenes/Part1/HEnvironmentPart1.unity
     guid: c88b4f28b11c4a541b43a95efcfd16b4
   - enabled: 1
-    path: Assets/Scenes/Part1/RectangleEnvironmentPart1.unity
-    guid: 407b4c2c56a511f4f8bce22cb9ee3bf8
-  - enabled: 1
     path: Assets/Scenes/Part2/HEnvironmentPart2.unity
     guid: b676a92c81abd57418d118606d36ecb5
   - enabled: 1
-    path: Assets/Scenes/Part2/RectangleEnvironmentPart2.unity
-    guid: e35bafe785c6a6f459c19406d26b9c6f
+    path: Assets/Scenes/Part1/Circle20EnvironmentPart1.unity
+    guid: 8eb57978510dbf84e89138a5a0cf9bf3
+  - enabled: 1
+    path: Assets/Scenes/Part1/Circle30EnvironmentPart1.unity
+    guid: 77a4faf8fd3c0874db51ad2eb08dd54b
+  - enabled: 1
+    path: Assets/Scenes/Part1/Circle100EnvironmentPart1.unity
+    guid: 506bd8bb87ae50b488cce9ddd4394e00
+  - enabled: 1
+    path: Assets/Scenes/Part1/OfficeEnvironmentPart1.unity
+    guid: a90834b415e83b74bbca711a6c8bc30e
+  - enabled: 1
+    path: Assets/Scenes/Part1/Rectangle20EnvironmentPart1.unity
+    guid: e66e8d37c2d1f1f429010c87f7144fe1
+  - enabled: 1
+    path: Assets/Scenes/Part1/Rectangle30EnvironmentPart1.unity
+    guid: 6199897ed11e77c4ab1594dcc155b1a4
+  - enabled: 1
+    path: Assets/Scenes/Part1/Rectangle100EnvironmentPart1.unity
+    guid: 1370a756f56cdf942874d5ee927e4a0c
+  - enabled: 1
+    path: Assets/Scenes/Part2/Circle20EnvironmentPart2.unity
+    guid: 94a7f88e496d54e4a86dd883088b4e8d
+  - enabled: 1
+    path: Assets/Scenes/Part2/Circle30EnvironmentPart2.unity
+    guid: 996e9a04cd06b5f4abf66d26ba2275f6
+  - enabled: 1
+    path: Assets/Scenes/Part2/Circle100EnvironmentPart2.unity
+    guid: fbb556cb6f7be1f4eb6c0231e9b207e5
+  - enabled: 1
+    path: Assets/Scenes/Part2/OfficeEnvironmentPart2.unity
+    guid: 20db2534c73310d4d9866d5f3566f417
+  - enabled: 1
+    path: Assets/Scenes/Part2/Rectangle20EnvironmentPart2.unity
+    guid: f23e825dab918eb489f665ca612ccfec
+  - enabled: 1
+    path: Assets/Scenes/Part2/Rectangle30EnvironmentPart2.unity
+    guid: a943a866af81ec247bb0f8750b35bf9f
+  - enabled: 1
+    path: Assets/Scenes/Part2/Rectangle100EnvironmentPart2.unity
+    guid: 26bd176dfcb44b148ab5e723c9a192c3
   m_configObjects: {}
