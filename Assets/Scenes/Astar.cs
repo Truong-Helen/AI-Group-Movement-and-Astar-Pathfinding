@@ -352,7 +352,9 @@ public class Astar : MonoBehaviour
             {
                 GameObject waypoint = Instantiate(waypointPrefab, smoothPath[i].worldPosition, Quaternion.identity);
                 waypoint.transform.parent = waypointParent;
-                
+                MoveToCheckpoint(waypoint.transform.position);
+
+
                 if (i != 0)
                 {
                     CreateLine(smoothPath[i - 1].worldPosition, smoothPath[i].worldPosition);
@@ -406,7 +408,15 @@ public class Astar : MonoBehaviour
         }
         return null;
     }
+    public void MoveToCheckpoint(Vector3 newPosition)
+    {
+        Entity381 entity = SelectionMgr.inst.selectedEntity;
+        Debug.Log(entity);
+        Move m = new Move(entity, newPosition);
+        UnitAI ai = entity.GetComponent<UnitAI>();
+        ai.SetCommand(m);
 
+    }
     public void ClearLines()
     {
         foreach(Transform line in lineParent)
