@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //spawnAmount = SceneMgr.inst.spawnAmount;
+        spawnAmount = SceneMgr.inst.spawnAmount;
         StartCoroutine(spawnObstacles(obstaclePrefab, spawnAmount));
     }
 

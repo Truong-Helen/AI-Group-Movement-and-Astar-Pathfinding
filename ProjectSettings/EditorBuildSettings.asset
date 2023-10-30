@@ -29,4 +29,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Part2/EnvironmentSelectPart2.unity
     guid: cb1bb561f727dde4cbe0a468f72f41c3
+  - enabled: 1
+    path: Assets/Scenes/Part1/HEnvironmentPart1.unity
+    guid: c88b4f28b11c4a541b43a95efcfd16b4
+  - enabled: 1
+    path: Assets/Scenes/Part1/RectangleEnvironmentPart1.unity
+    guid: 407b4c2c56a511f4f8bce22cb9ee3bf8
+  - enabled: 1
+    path: Assets/Scenes/Part2/HEnvironmentPart2.unity
+    guid: b676a92c81abd57418d118606d36ecb5
+  - enabled: 1
+    path: Assets/Scenes/Part2/RectangleEnvironmentPart2.unity
+    guid: e35bafe785c6a6f459c19406d26b9c6f
   m_configObjects: {}

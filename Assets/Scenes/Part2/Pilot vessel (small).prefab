@@ -5202,7 +5202,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5900679159480347352}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.0010472151, z: 0, w: 0.9999995}
   m_LocalPosition: {x: 32.3, y: 0, z: 37.6}
   m_LocalScale: {x: 0.22784843, y: 0.22784843, z: 0.22784843}
   m_Children:
@@ -5212,7 +5212,7 @@ Transform:
   - {fileID: 4758198099159111980}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0.12, z: 0}
 --- !u!65 &6487092333865402132
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5246,7 +5246,7 @@ MonoBehaviour:
   heading: 0
   desiredHeading: 0
   acceleration: 20
-  turnRate: 150
+  turnRate: 200
   maxSpeed: 20
   minSpeed: 0
   mass: 40
