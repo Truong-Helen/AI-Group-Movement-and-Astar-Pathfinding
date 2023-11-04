@@ -3241,7 +3241,7 @@ MonoBehaviour:
   obstaclesParent: {fileID: 2114993299}
   startSquare: {fileID: 2111415756}
   endSquare: {fileID: 720844152}
-  spawnAmount: 20
+  spawnAmount: 30
   border: 10
 --- !u!1 &1625732518
 GameObject:

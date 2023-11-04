@@ -47,6 +47,7 @@ public class PFBoatSpawner : MonoBehaviour
             //ent.gameObject.transform.parent = boatsParent;
             //ent.transform.Rotate(randomAngle);
         }
+        DistanceMgr.inst.Initialize();
     }
     
     

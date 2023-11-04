@@ -1246,8 +1246,8 @@ MonoBehaviour:
   potentialDistanceThreshold: 1000
   attractionCoefficient: 20000
   attractiveExponent: -1
-  repulsiveCoefficient: 1500
-  repulsiveExponent: -2
+  repulsiveCoefficient: 1250
+  repulsiveExponent: -2.5
   layerMask: 0
   astarSingleMovement: 0
   rClickRadiusSq: 100
@@ -2633,7 +2633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345303798}
   m_LocalRotation: {x: -0.62105906, y: 0.01384182, z: 0.010969626, w: 0.78356475}
-  m_LocalPosition: {x: 87.55226, y: -171.89792, z: 56.691753}
+  m_LocalPosition: {x: 104.69091, y: -161.74211, z: 48.23383}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1517180312}
@@ -3241,7 +3241,7 @@ MonoBehaviour:
   obstaclesParent: {fileID: 2114993299}
   startSquare: {fileID: 2111415756}
   endSquare: {fileID: 720844152}
-  spawnAmount: 20
+  spawnAmount: 100
   border: 10
 --- !u!1 &1625732518
 GameObject:

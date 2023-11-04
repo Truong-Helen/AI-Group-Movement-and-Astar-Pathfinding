@@ -89,9 +89,11 @@ public class Move : Command
 
 
     public float doneDistanceSq = 10;
+    public float pfDoneDistanceSq = 100;
     public override bool IsDone()
     {
-
+        if (AIMgr.inst.isPotentialFieldsMovement)
+            return ((entity.position - movePosition).sqrMagnitude < pfDoneDistanceSq); 
         return ((entity.position - movePosition).sqrMagnitude < doneDistanceSq);
     }
 

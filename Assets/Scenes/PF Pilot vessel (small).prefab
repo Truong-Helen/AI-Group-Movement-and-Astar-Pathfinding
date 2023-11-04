@@ -5248,7 +5248,7 @@ MonoBehaviour:
   desiredHeading: 0
   acceleration: 10
   turnRate: 20
-  maxSpeed: 30
+  maxSpeed: 20
   minSpeed: 0
   mass: 40
   entityType: 5
