@@ -68,4 +68,61 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Part2/Rectangle100EnvironmentPart2.unity
     guid: 26bd176dfcb44b148ab5e723c9a192c3
+  - enabled: 1
+    path: Assets/Scenes/Part3/Circle20EnvironmentPart3.unity
+    guid: 5c0a660633607e945ade46c8efe5642b
+  - enabled: 1
+    path: Assets/Scenes/Part3/Circle30EnvironmentPart3.unity
+    guid: bac319f1d31886d4a893cfbe6fcb71eb
+  - enabled: 1
+    path: Assets/Scenes/Part3/Circle100EnvironmentPart3.unity
+    guid: a37d33f4306d14f4faab6fee25404581
+  - enabled: 1
+    path: Assets/Scenes/Part3/EnvironmentSelectPart3.unity
+    guid: 2b7a17b2edbf7a446b6c13ba76083cc7
+  - enabled: 1
+    path: Assets/Scenes/Part3/OfficeEnvironmentPart3.unity
+    guid: 87e35b2307365f840b12dbb234da90b1
+  - enabled: 1
+    path: Assets/Scenes/Part3/Rectangle20EnvironmentPart3.unity
+    guid: 3fbfd0ee6c0f49344932eaca886bb5e9
+  - enabled: 1
+    path: Assets/Scenes/Part3/Rectangle30EnvironmentPart3.unity
+    guid: 160e5f79c67039342a9c14d36858025d
+  - enabled: 1
+    path: Assets/Scenes/Part3/Rectangle100EnvironmentPart3.unity
+    guid: 09c91d7854655324494e1490202658b1
+  - enabled: 1
+    path: Assets/Scenes/Part4/Circle20EnvironmentPart4.unity
+    guid: 00997937b106d4448a13dace71880605
+  - enabled: 1
+    path: Assets/Scenes/Part4/Circle30EnvironmentPart4.unity
+    guid: f84c7126032802f4192d5a431b9fd725
+  - enabled: 1
+    path: Assets/Scenes/Part4/Circle100EnvironmentPart4.unity
+    guid: 454f0aaaaa5b1954da07e0e3ab1bcafe
+  - enabled: 1
+    path: Assets/Scenes/Part4/EnvironmentSelectPart4.unity
+    guid: 0a61c796ba779ba4ead3e8cee6423dfc
+  - enabled: 1
+    path: Assets/Scenes/Part4/Rectangle20EnvironmentPart4.unity
+    guid: 38a3fc8786e526f419ba86b1efbb5c5a
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: a110c49d395b8864086bdc24daed8e31
+  - enabled: 0
+    path: 
+    guid: df01215dc5dd6724f87708484f16bd10
+  - enabled: 1
+    path: Assets/Scenes/Part4/Rectangle30EnvironmentPart4.unity
+    guid: dc19e27bc2f855444914669bb7be4a73
+  - enabled: 1
+    path: Assets/Scenes/Part4/Rectangle100EnvironmentPart4.unity
+    guid: 63dc4393ea32bb64ea76c348558a7987
   m_configObjects: {}

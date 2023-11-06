@@ -37,7 +37,7 @@ public class PFObstacleSpawner : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             ClearObstacles();
-            //SpawnPFObstacles(spawnAmount);
+            SpawnPFObstacles(spawnAmount);
         }
 
         if (Input.GetKeyDown(KeyCode.V))

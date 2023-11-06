@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.3731195, g: 0.3807401, b: 0.35872737, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311926, g: 0.38073996, b: 0.35872692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1929,7 +1929,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1061358578
 RectTransform:
@@ -2632,8 +2632,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345303798}
-  m_LocalRotation: {x: -0.62105906, y: 0.01384182, z: 0.010969626, w: 0.78356475}
-  m_LocalPosition: {x: 87.55226, y: -171.89792, z: 56.691753}
+  m_LocalRotation: {x: -0.4369167, y: 0.0933217, z: 0.045623917, w: 0.8934838}
+  m_LocalPosition: {x: 363.7217, y: -465.42297, z: -207.46133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1517180312}
@@ -3310,12 +3310,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1b932ac85e76b4791b5d6702757ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PFObstaclePrefab: {fileID: 814378166586512890, guid: 83dd0ac8d9cd2a148995750db2ed11f9,
-    type: 3}
-  obstaclesParent: {fileID: 2114993299}
+  PFObstaclePrefab: {fileID: 5120183836602661663}
+  obstaclesParent: {fileID: 1142393663}
   startSquare: {fileID: 2111415756}
   endSquare: {fileID: 720844152}
-  spawnAmount: 20
+  spawnAmount: 30
   border: 10
 --- !u!1 &1625732518
 GameObject:
@@ -4767,6 +4766,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4434d8d615ccfdf46ba4c3a7a5a5d6a3, type: 3}
+--- !u!1 &5120183836602661663 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 814378166586512890, guid: 5202dd9cd59c948418617b4ad80faeeb,
+    type: 3}
+  m_PrefabInstance: {fileID: 5495461039381999333}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5495461039381999333
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -148,34 +148,34 @@ public class SceneMgr : MonoBehaviour
     public void ChangeSceneTo20CirclesEnvironmentPart3()
     {
         spawnAmount = 20;
-        SceneManager.LoadScene("CircleEnvironmentPart3");
+        SceneManager.LoadScene("Circle20EnvironmentPart3");
     }
     public void ChangeSceneTo30CirclesEnvironmentPart3()
     {
         spawnAmount = 30;
-        SceneManager.LoadScene("CircleEnvironmentPart3");
+        SceneManager.LoadScene("Circle30EnvironmentPart3");
     }
     public void ChangeSceneTo100CirclesEnvironmentPart3()
     {
         spawnAmount = 100;
-        SceneManager.LoadScene("CircleEnvironmentPart3");
+        SceneManager.LoadScene("Circle100EnvironmentPart3");
     }
 
     // Rectangle Environment
     public void ChangeSceneTo20RectanglesEnvironmentPart3()
     {
         spawnAmount = 20;
-        SceneManager.LoadScene("RectangleEnvironmentPart3");
+        SceneManager.LoadScene("Rectangle20EnvironmentPart3");
     }
     public void ChangeSceneTo30RectanglesEnvironmentPart3()
     {
         spawnAmount = 30;
-        SceneManager.LoadScene("RectangleEnvironmentPart3");
+        SceneManager.LoadScene("Rectangle30EnvironmentPart3");
     }
     public void ChangeSceneTo100RectanglesEnvironmentPart3()
     {
         spawnAmount = 100;
-        SceneManager.LoadScene("RectangleEnvironmentPart3");
+        SceneManager.LoadScene("Rectangle100EnvironmentPart3");
     }
 
     // H Environment
@@ -200,34 +200,34 @@ public class SceneMgr : MonoBehaviour
     public void ChangeSceneTo20CirclesEnvironmentPart4()
     {
         spawnAmount = 20;
-        SceneManager.LoadScene("CircleEnvironmentPart4");
+        SceneManager.LoadScene("Circle20EnvironmentPart4");
     }
     public void ChangeSceneTo30CirclesEnvironmentPart4()
     {
         spawnAmount = 30;
-        SceneManager.LoadScene("CircleEnvironmentPart4");
+        SceneManager.LoadScene("Circle30EnvironmentPart4");
     }
     public void ChangeSceneTo100CirclesEnvironmentPart4()
     {
         spawnAmount = 100;
-        SceneManager.LoadScene("CircleEnvironmentPart4");
+        SceneManager.LoadScene("Circle100EnvironmentPart4");
     }
 
     // Rectangle Environment
     public void ChangeSceneTo20RectanglesEnvironmentPart4()
     {
         spawnAmount = 20;
-        SceneManager.LoadScene("RectangleEnvironmentPart4");
+        SceneManager.LoadScene("Rectangle20EnvironmentPart4");
     }
     public void ChangeSceneTo30RectanglesEnvironmentPart4()
     {
         spawnAmount = 30;
-        SceneManager.LoadScene("RectangleEnvironmentPart4");
+        SceneManager.LoadScene("Rectangle30EnvironmentPart4");
     }
     public void ChangeSceneTo100RectanglesEnvironmentPart4()
     {
         spawnAmount = 100;
-        SceneManager.LoadScene("RectangleEnvironmentPart4");
+        SceneManager.LoadScene("Rectangle100EnvironmentPart4");
     }
 
     // H Environment
